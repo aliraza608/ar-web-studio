@@ -1,15 +1,6 @@
-// =============================
-// AOS Animation
-// =============================
-
-AOS.init({
-  duration: 1000,
-  once: true
-});
-
-// =============================
-// Mobile Menu
-// =============================
+// ===============================
+// MENU TOGGLE
+// ===============================
 
 const menuBtn = document.querySelector(".menu-btn");
 const navLinks = document.querySelector(".nav-links");
@@ -18,61 +9,59 @@ menuBtn.addEventListener("click", () => {
     navLinks.classList.toggle("active");
 });
 
-// =============================
-// Close Menu on Link Click
-// =============================
+// ===============================
+// CLOSE MENU AFTER CLICK
+// ===============================
 
 document.querySelectorAll(".nav-links a").forEach(link => {
-
     link.addEventListener("click", () => {
         navLinks.classList.remove("active");
     });
-
 });
 
-// =============================
-// Sticky Navbar
-// =============================
+// ===============================
+// HEADER SHADOW ON SCROLL
+// ===============================
 
 const header = document.querySelector("header");
 
 window.addEventListener("scroll", () => {
 
-    if(window.scrollY > 80){
-
+    if (window.scrollY > 80) {
         header.classList.add("sticky");
-
-    }else{
-
+    } else {
         header.classList.remove("sticky");
-
     }
 
 });
 
- // =============================
-// Back To Top Button
-// =============================
+// ===============================
+// SMOOTH SCROLL
+// ===============================
 
-const topBtn = document.querySelector(".top-btn");
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-window.addEventListener("scroll", () => {
+    anchor.addEventListener("click", function (e) {
 
-    if(window.scrollY > 300){
+        e.preventDefault();
 
-        topBtn.style.display = "flex";
+        const target = document.querySelector(this.getAttribute("href"));
 
-    }else{
+        if (target) {
 
-        topBtn.style.display = "none";
+            target.scrollIntoView({
+                behavior: "smooth"
+            });
 
-    }
+        }
+
+    });
 
 });
 
-// =============================
-// Active Navigation
-// =============================
+// ===============================
+// ACTIVE NAV LINK
+// ===============================
 
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-links a");
@@ -84,11 +73,10 @@ window.addEventListener("scroll", () => {
     sections.forEach(section => {
 
         const sectionTop = section.offsetTop - 120;
+        const sectionHeight = section.clientHeight;
 
-        if(window.scrollY >= sectionTop){
-
+        if (pageYOffset >= sectionTop) {
             current = section.getAttribute("id");
-
         }
 
     });
@@ -97,51 +85,27 @@ window.addEventListener("scroll", () => {
 
         link.classList.remove("active");
 
-        if(link.getAttribute("href") === "#" + current){
-
+        if (link.getAttribute("href") === "#" + current) {
             link.classList.add("active");
-
         }
 
     });
 
 });
 
-// =============================
-// Contact Form
-// =============================
+// ===============================
+// AOS ANIMATION
+// ===============================
 
-const form = document.querySelector(".contact-form form");
-
-if(form){
-
-form.addEventListener("submit", function(e){
-
-e.preventDefault();
-
-alert("✅ Thank you! Your message has been received. We will contact you soon.");
-
-form.reset();
-
+AOS.init({
+    duration: 1000,
+    once: true
 });
 
-}
+// ===============================
+// WEBSITE LOADED
+// ===============================
 
-// =============================
-// Current Year
-// =============================
-
-const copyright = document.querySelector(".copyright");
-
-if(copyright){
-
-copyright.innerHTML =
-`© ${new Date().getFullYear()} AR Web Studio. All Rights Reserved.`;
-
-}
-
-// =============================
-// Console Message
-// =============================
-
-console.log("🚀 AR Web Studio Website Loaded Successfully");
+window.addEventListener("load", () => {
+    console.log("AR Web Studio Loaded Successfully");
+});
